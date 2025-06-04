@@ -1,4 +1,3 @@
-// Category Scrolling Handler
 const categoriesContainer = document.querySelector('.categories');
 const leftArrow = document.querySelector('#left-arrow');
 const rightArrow = document.querySelector('#right-arrow');
@@ -7,7 +6,7 @@ if (categoriesContainer && leftArrow && rightArrow) {
     // Scroll right when right arrow is clicked
     rightArrow.addEventListener('click', () => {
         categoriesContainer.scrollBy({
-            left: 200, // Adjust this value based on how much you want to scroll
+            left: 200,
             behavior: 'smooth'
         });
     });
@@ -15,7 +14,7 @@ if (categoriesContainer && leftArrow && rightArrow) {
     // Scroll left when left arrow is clicked
     leftArrow.addEventListener('click', () => {
         categoriesContainer.scrollBy({
-            left: -200, // Adjust this value based on how much you want to scroll
+            left: -200,
             behavior: 'smooth'
         });
     });

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/bootstrap.php'; // Load environment first
+require_once __DIR__ . '/bootstrap.php';
 
 $dsn = "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']}";
 $options = [
@@ -16,9 +16,6 @@ try {
         $_ENV['DB_PASS'],
         $options
     );
-    
-    // Connection successful (debug only)
-    // error_log("Database connection established");
 
 } catch(PDOException $e) {
     error_log("Database connection failed: " . $e->getMessage());

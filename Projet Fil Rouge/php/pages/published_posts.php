@@ -1,18 +1,17 @@
 <?php
     session_start();
-    require_once __DIR__ . '/../controllers/verify_jwt.php';
-    $userData = verifyJWT(); // Will redirect if invalid
+    require_once __DIR__ . '/../functions/actions/verify_jwt.php';
+    $userData = verifyJWT();
     require_once "../config/connectDB.php";
     require_once "../functions/queries/get_posts_by_status.php";
 
-    // $user_id = $_SESSION["user"];
     $user_id = $userData->user_id;
 
     $publishedPosts = getPostsByStatus($pdo, 'published', $user_id);
 ?>
 
 <!DOCTYPE html>
-<htmlc lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,6 +38,7 @@
     <?php include "../../views/partials/footer.html"; ?>
 
     <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/handle_hamburger.js"></script>
     <!-- <script src="../../assets/js/handle_delete_post.js"></script> -->
     <script>
         <?php require_once "../../assets/js/setup_delete_post.js"; ?>
@@ -49,8 +49,8 @@
                 <p>No posts have been published yet. Start sharing your ideas by creating a new post!</p>
                 <a href="add_blog_ajax_draft.php"><button class="action-button">Create Your First Post</button></a>
             </div>`,
-            "../../php/controllers/delete_post.php"
+            "../functions/actions/delete_post.php"
         );
     </script>
 </body>
-</htmlc
+</html>

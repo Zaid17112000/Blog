@@ -18,7 +18,7 @@
         if (isset($_FILES['featured-image']) && $_FILES['featured-image']['error'] == UPLOAD_ERR_OK) {
             $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/Projet Fil Rouge/php/uploads/';
             if (!file_exists($upload_dir)) {
-                mkdir($upload_dir, 0777, true); // Fixed typo: $uploads -> $upload_dir
+                mkdir($upload_dir, 0777, true);
             }
             $file_name = uniqid() . '-' . basename($_FILES['featured-image']['name']);
             $target_file = $upload_dir . $file_name;

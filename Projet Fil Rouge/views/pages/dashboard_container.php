@@ -92,12 +92,12 @@
                     <?php if (empty($published_posts)): ?>
                         <li class="activity-item">
                             <div class="activity-content">
-                                <p>You don't have any draft posts.</p>
+                                <p>You don't have any published posts.</p>
                             </div>
                         </li>
                     <?php else: ?>
                         <?php foreach ($published_posts as $publish): ?>
-                            <li class="activity-item">
+                            <li class="activity-item" data-post-id="<?= $publish['post_id'] ?>" data-post-status="published">
                                 <div class="activity-icon">
                                     <i class="fas fa-edit"></i>
                                 </div>
@@ -105,10 +105,10 @@
                                     <h4><?php echo $publish['post_title']; ?></h4>
                                     <small>Last updated: <?php echo date('M d, Y', strtotime($publish['post_updated'])); ?></small>
                                     <div>
-                                        <a href="#" style="color: var(--primary-color); font-size: 12px; text-decoration: none; margin-right: 10px;">
+                                        <a href="add_blog_ajax_draft.php?post_id=<?= htmlspecialchars($publish['post_id']) ?>" style="color: var(--primary-color); font-size: 12px; text-decoration: none; margin-right: 10px;">
                                             <i class="fas fa-pen"></i> Edit
                                         </a>
-                                        <a href="#" style="color: var(--danger-color); font-size: 12px; text-decoration: none;">
+                                        <a href="#" class="delete-button" style="color: var(--danger-color); font-size: 12px; text-decoration: none;">
                                             <i class="fas fa-trash"></i> Delete
                                         </a>
                                     </div>
@@ -133,7 +133,7 @@
                         </li>
                     <?php else: ?>
                         <?php foreach ($draft_posts as $draft): ?>
-                            <li class="activity-item">
+                            <li class="activity-item" data-post-id="<?= $draft['post_id'] ?>" data-post-status="draft">
                                 <div class="activity-icon">
                                     <i class="fas fa-edit"></i>
                                 </div>
@@ -141,10 +141,10 @@
                                     <h4><?php echo $draft['post_title']; ?></h4>
                                     <small>Last updated: <?php echo date('M d, Y', strtotime($draft['post_updated'])); ?></small>
                                     <div>
-                                        <a href="#" style="color: var(--primary-color); font-size: 12px; text-decoration: none; margin-right: 10px;">
+                                        <a href="add_blog_ajax_draft.php?post_id=<?= htmlspecialchars($draft['post_id']) ?>" style="color: var(--primary-color); font-size: 12px; text-decoration: none; margin-right: 10px;">
                                             <i class="fas fa-pen"></i> Edit
                                         </a>
-                                        <a href="#" style="color: var(--danger-color); font-size: 12px; text-decoration: none;">
+                                        <a href="#" class="delete-button" style="color: var(--danger-color); font-size: 12px; text-decoration: none;">
                                             <i class="fas fa-trash"></i> Delete
                                         </a>
                                     </div>

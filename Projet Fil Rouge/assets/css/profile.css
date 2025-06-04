@@ -10,11 +10,6 @@
     --spacing-unit: 16px;
 }
 
-/* body {
-    background-color: rgba(255, 255, 255, 1);
-} */
-  
-/* Profile */
 .profile {
     display: flex;
     width: 100%;
@@ -72,7 +67,6 @@
 .profile .profile-content .nav .profile-nav div:nth-child(1) span:nth-child(2) div a p {
     color: #242424;
     font-size: 14px;
-    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
     line-height: 20px;
 }
 
@@ -85,10 +79,7 @@
 .profile .profile-content .posts-grid .post-card {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    /* background-color: var(--background-color); */
     overflow: hidden;
-    /* box-shadow: var(--card-shadow); */
-    /* transition: transform var(--transition-speed), box-shadow var(--transition-speed); */
     margin-bottom: 32px;
     max-width: 800px;
     justify-content: space-between;
@@ -100,7 +91,6 @@
 
 .profile .profile-content .posts-grid .post-card .post-image {
     height: 100px;
-    /* margin-left: 56px; */
     width: 160px;
     height: 107px;
     justify-self: end;
@@ -187,7 +177,7 @@
 .profile .profile-header div:first-child .bio {
     line-height: 20px;
     color: #6B6B6B;
-    font-style: 14px;
+    font-size: 13px;
     margin-top: 12px;
 }
 
@@ -275,7 +265,10 @@
     font-size: 1rem;
 }
 
-/* Responsive Design */
+/* ====================================
+   RESPONSIVE MEDIA QUERIES
+   ==================================== */
+
 @media screen and (min-width: 989px) {
     .profile .profile-content {
         margin: 0 80px;

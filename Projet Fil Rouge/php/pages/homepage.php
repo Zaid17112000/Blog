@@ -1,27 +1,11 @@
 <?php
     session_start();
-    require_once __DIR__ . '/../controllers/verify_jwt.php';
+    require_once __DIR__ . '/../functions/actions/verify_jwt.php';
     $userData = verifyJWT();
     require_once "../config/connectDB.php";
-    // require_once "../functions/queries/get_user_infos.php";
+    require_once "../functions/queries/get_latest_posts.php";
 
-    $sql = "SELECT 
-        p.post_id, 
-        p.post_title, 
-        p.post_img_url, 
-        GROUP_CONCAT(DISTINCT c.category_name SEPARATOR ' | ') AS category_name, 
-        SUBSTRING_INDEX(p.post_content, '. ', 1) AS content_preview
-    FROM posts p 
-    LEFT JOIN categories_posts cp ON p.post_id = cp.post_id 
-    LEFT JOIN categories c ON cp.category_id = c.category_id
-    LEFT JOIN users u ON u.user_id = p.user_id
-    GROUP BY p.post_id, p.post_title, p.post_img_url, p.post_content  -- Needed when using GROUP_CONCAT
-    ORDER BY p.post_published DESC
-    LIMIT 3";
-    
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $posts = $stmt->fetchAll();
+    $posts = getLatestPosts($pdo);
 ?>    
 
 <!DOCTYPE html>
@@ -62,5 +46,6 @@
 
     <script src="../../assets/js/toggle_sidebar.js"></script>
     <script src="../../assets/js/hide_bio.js"></script>
+    <script src="../../assets/js/handle_hamburger.js"></script>
 </body>
 </html>

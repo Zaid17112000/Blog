@@ -1,6 +1,5 @@
 const publishButtons = document.querySelectorAll(".publish-button");
-        
-// Handle Publish Button
+
 publishButtons.forEach(btn => {
     btn.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -12,7 +11,7 @@ publishButtons.forEach(btn => {
         }
 
         try {
-            const response = await fetch("../../php/controllers/publish_draft_post.php", {
+            const response = await fetch("../../php/functions/actions/publish_draft_post.php", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -26,7 +25,6 @@ publishButtons.forEach(btn => {
             const result = await response.json();
     
             if (result.success) {
-                // Remove the draft card from the DOM
                 btn.closest('.draft-card').remove();
                 alert('Post published successfully');
             } else {

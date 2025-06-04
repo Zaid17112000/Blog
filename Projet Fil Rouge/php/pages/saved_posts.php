@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once __DIR__ . '/../controllers/verify_jwt.php';
+    require_once __DIR__ . '/../functions/actions/verify_jwt.php';
     $userData = verifyJWT();
     require_once "../config/connectDB.php";
     require_once "../functions/queries/get_saved_posts.php";
@@ -44,5 +44,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script src="../../assets/js/unsave_post.js"></script>
+    <script src="../../assets/js/handle_hamburger.js"></script>
 </body>
 </html>

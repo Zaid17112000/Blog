@@ -1,10 +1,3 @@
-/**
- * Handles post deletion for both draft and published posts
- * @param {string} cardSelector - CSS selector for the post card (e.g., '.draft-card' or '.post-card')
- * @param {string} listSelector - CSS selector for the container of posts (e.g., '.drafts-list' or '.posts-grid')
- * @param {string} emptyMessageHtml - HTML to show when no posts remain
- * @param {string} deleteEndpoint - URL for the delete endpoint
- */
 function setupDeletePost(cardSelector, listSelector, emptyMessageHtml, deleteEndpoint) {
     const deleteButtons = document.querySelectorAll(".delete-button");
     

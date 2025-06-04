@@ -4,10 +4,9 @@
         <a href="add_blog_ajax_draft.php"><button class="action-button">Create New Daft</button></a>
     </div>
     
-    <div class="drafts-list">
+    <!-- <div class="drafts-list">
         <?php if ($draftPosts && count($draftPosts) > 0) : ?>
             <?php foreach ($draftPosts as $dps) : ?>
-                <!-- Draft 1 -->
                 <div class="draft-card">
                     <div class="draft-info">
                         <h2 class="draft-title"><?= htmlspecialchars($dps["post_title"]) ?></h2>
@@ -16,7 +15,7 @@
                             <span>Created: <?= htmlspecialchars($dps["formatted_date"]) ?></span>
                         </div>
                         <div>
-                            <span class="category-label"><?= htmlspecialchars($dps["tag_name"]) ?></span>
+                            <span class="category-label"><?= htmlspecialchars($dps["category_name"]) ?></span>
                         </div>
                         <div class="completion-status">
                             <div class="progress-bar">
@@ -40,6 +39,46 @@
                     <button class="action-button">Create Your First Draft</button>
                 </a>
             </div>
+        <?php endif; ?>
+    </div> -->
+
+    <div class="drafts-list">
+        <?php if ($draftPosts && count($draftPosts) > 0) : ?>
+            <?php 
+            // Group posts by ID first
+            $groupedPosts = [];
+            foreach ($draftPosts as $dps) {
+                $postId = $dps['post_id'];
+                if (!isset($groupedPosts[$postId])) {
+                    $groupedPosts[$postId] = $dps;
+                    $groupedPosts[$postId]['categories'] = [];
+                }
+                if ($dps['category_id']) {
+                    $groupedPosts[$postId]['categories'][] = [
+                        'category_id' => $dps['category_id'],
+                        'category_name' => $dps['category_name']
+                    ];
+                }
+            }
+            ?>
+            
+            <?php foreach ($groupedPosts as $dps) : ?>
+                <div class="draft-card">
+                    <div class="draft-info">
+                        <h2 class="draft-title"><?= htmlspecialchars($dps["post_title"]) ?></h2>
+                        <div class="draft-meta">
+                            <span>Last edited: <?= htmlspecialchars($dps["post_updated"]) ?></span>
+                            <span>Created: <?= htmlspecialchars($dps["formatted_date"]) ?></span>
+                        </div>
+                        <div>
+                            <?php foreach ($dps['categories'] as $category): ?>
+                                <span class="category-label"><?= htmlspecialchars($category['category_name']) ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                        <!-- rest of your card -->
+                    </div>
+                </div>
+            <?php endforeach; ?>
         <?php endif; ?>
     </div>
 </div>

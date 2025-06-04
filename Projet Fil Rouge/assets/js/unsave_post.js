@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const postId = button.dataset.postId;
             const card = button.closest('.col-md-4');
 
-            fetch('../../php/controllers/unsave_post.php', {
+            fetch('../../php/functions/actions/unsave_post.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

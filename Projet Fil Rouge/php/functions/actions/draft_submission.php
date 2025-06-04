@@ -1,12 +1,4 @@
 <?php
-    /**
-     * Processes draft submission (create or update).
-     * @param PDO $pdo Database connection
-     * @param int $user_id User ID
-     * @return array Response data
-     * @throws Exception
-     */
-
     function createSlug($string) {
         $slug = strtolower(trim($string));
         $slug = preg_replace('/[^a-z0-9-]/', '-', $slug);
@@ -21,7 +13,6 @@
         $tags_name = json_decode($_POST['selected-tags'] ?? '[]', true);
         $post_excerpt = trim(filter_input(INPUT_POST, 'excerpt', FILTER_SANITIZE_SPECIAL_CHARS));
         $post_status = 'draft';
-        // $user_id = $_SESSION["user"];
         $post_id = filter_input(INPUT_POST, 'post_id', FILTER_VALIDATE_INT) ?: null;
 
         if (!is_array($category_names)) {
@@ -187,12 +178,6 @@
         ];
     }
 
-    /**
-     * Handles file upload and validation.
-     * @param array $file Uploaded file data
-     * @return string|null File URL or null
-     * @throws Exception
-     */
     function handleFileUpload($file) {
         // Validate image file
         $file_type = mime_content_type($file['tmp_name']);
@@ -220,11 +205,6 @@
         }
     }
 
-    /**
-     * Sends a JSON response and exits.
-     * @param array $data Response data
-     * @param int $statusCode HTTP status code
-     */
     function sendJsonResponse($data, $statusCode = 200) {
         header('Content-Type: application/json', true, $statusCode);
         echo json_encode($data);

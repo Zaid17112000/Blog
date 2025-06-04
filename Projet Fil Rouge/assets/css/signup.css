@@ -23,7 +23,7 @@ header {
     padding: 20px 0;
 }
 
-.logo {
+/* .logo {
     font-size: 24px;
     font-weight: 700;
     color: var(--main-color);
@@ -31,11 +31,74 @@ header {
 
 .logo span {
     color: #333;
+} */
+
+.logo-container {
+    flex: 1 0 auto;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    /* background: var(--main-color); */
+    background: #34495e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--main-color);;
+    color: #34495e;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    /* gap: 5px; */
+    margin-right: 20px;
+    width: 25px;
+    height: 18px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 .nav-links {
-    display: flex;
+    display: none;
     list-style: none;
+    gap: 20px;
 }
 
 .nav-links li {
@@ -165,7 +228,6 @@ header {
 }
 
 .invalid-feedback {
-    /* display: none; */
     color: #dc3545;
     font-size: 0.875em;
     margin-top: 0.25rem;
@@ -323,13 +385,11 @@ header {
     opacity: 0.6;
 }
 
-/* Bio Field Specific Styles */
 .form-group textarea#bio {
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-family: inherit;
     font-size: 14px;
     resize: vertical;
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -346,7 +406,6 @@ header {
     font-style: italic;
 }
 
-/* Character counter styles */
 .bio-counter {
     display: block;
     text-align: right;
@@ -363,9 +422,20 @@ header {
     color: #e74c3c;
 }
 
-/* Bio field specific container */
 .form-group.bio-field {
     margin-bottom: 25px;
+}
+
+#signup-form .form-group {
+    margin-bottom: 20px;
+}
+
+.login-header h1 {
+    font-size: 26px;
+}
+
+.login-header p {
+    margin-bottom: 20px;
 }
 
 /* Footer */
@@ -381,6 +451,10 @@ footer {
     color: #ccc;
 }
 
+/* ====================================
+   RESPONSIVE MEDIA QUERIES
+   ==================================== */
+
 @media (max-width: 768px) {
     .login-container {
         max-width: 100%;
@@ -393,6 +467,40 @@ footer {
     }
 }
 @media (max-width: 500px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .auth-buttons {
+        display: none;
+    }
+
+    .nav-links {
+        right: 31px;
+        flex-direction: column;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        padding: 20px;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex;
+        position: absolute;
+        top: 86px;
+        right: 23px;
+    }
+
+    .navbar {
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav-links li {
+        margin: 0;
+    }
+
     .login-container {
         padding: 30px 20px;
     }
@@ -401,18 +509,4 @@ footer {
     .login {
         display: none;
     }
-}
-
-/* Add this to the existing CSS file or in a separate signup.css */
-#signup-form .form-group {
-    margin-bottom: 20px;
-}
-
-/* Optional: Slightly adjust form layout for signup */
-.login-header h1 {
-    font-size: 26px;
-}
-
-.login-header p {
-    margin-bottom: 20px;
 }

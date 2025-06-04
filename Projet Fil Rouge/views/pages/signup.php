@@ -34,7 +34,7 @@
 
             <div class="form-group bio-field">
                 <label for="bio">Bio</label>
-                <textarea id="bio" name="bio" rows="4" placeholder="Tell us a little about yourself" maxlength="250"><?php echo isset($validateInputEntry['data']['bio']) ? htmlspecialchars($validateInputEntry['data']['bio']) : ''; ?></textarea>
+                <textarea id="bio" name="bio" rows="4" placeholder="Tell us a little about yourself" maxlength="250" style="font-family: 'Merriweather Sans', sans-serif;"><?php echo isset($validateInputEntry['data']['bio']) ? htmlspecialchars($validateInputEntry['data']['bio']) : ''; ?></textarea>
                 <span class="bio-counter">0/250</span>
                 <p class="error-message" id="bio-error">
                     <?php echo isset($validateInputEntry['errors']['bio']) ? htmlspecialchars($validateInputEntry['errors']['bio']) : ''; ?>

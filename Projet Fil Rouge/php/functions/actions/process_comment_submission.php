@@ -1,8 +1,4 @@
 <?php
-    /**
-     * Processes the comment submission, validates inputs, and handles database operations.
-     * @param PDO $pdo Database connection object
-     */
     function processCommentSubmission($pdo) {
         // Get and sanitize form data
         $post_id = filter_input(INPUT_POST, 'post_id', FILTER_VALIDATE_INT);
@@ -65,14 +61,6 @@
         }
     }
 
-    /**
-     * Validates if an entity exists in the database.
-     * @param PDO $pdo Database connection
-     * @param string $table Table name
-     * @param string $column Column name
-     * @param int $id Entity ID
-     * @return bool True if exists, false otherwise
-     */
     function validateEntityExists($pdo, $table, $column, $id) {
         // Whitelist allowed tables to prevent SQL injection
         $allowedTables = ["posts", "users", "comments"];
@@ -86,11 +74,6 @@
         return $stmt->fetchColumn() > 0;
     }
 
-    /**
-     * Sends a JSON error response and exits.
-     * @param string $message Error message
-     * @param int $statusCode HTTP status code (default: 400)
-     */
     function sendErrorResponse($message, $statusCode = 400) {
         header("Content-Type: application/json", true, $statusCode);
         echo json_encode(["success" => false, "error" => $message]);

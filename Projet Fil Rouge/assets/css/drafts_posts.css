@@ -1,11 +1,8 @@
-/* Global Resets and Base Styles */
-
 body {
     line-height: 1.6;
     color: #333;
 }
 
-/* Content Styles */
 .page-title {
     margin: 20px 0;
     color: #2c3e50;
@@ -29,7 +26,6 @@ body {
     background-color: #16a085;
 }
 
-/* Draft Posts Styles */
 .drafts-list {
     margin-top: 20px;
 }
@@ -134,7 +130,6 @@ body {
     margin-right: 5px;
 }
 
-/* Draft Category Label */
 .category-label {
     background-color: #3498db;
     color: white;
@@ -144,7 +139,6 @@ body {
     margin-right: 5px;
 }
 
-/* Empty State */
 .empty-state {
     text-align: center;
     padding: 50px 20px;
@@ -159,7 +153,6 @@ body {
     margin-bottom: 15px;
 }
 
-/* No Draft */
 .no-drafts-message {
     text-align: center;
     padding: 40px;
@@ -192,9 +185,13 @@ footer {
     margin-top: 60px;
 }
 
+/* ====================================
+   RESPONSIVE MEDIA QUERIES
+   ==================================== */
+
 @media screen and (max-width: 852px) {
     .nav-links {
-        display: none; /* Placeholder for mobile menu */
+        display: none;
     }
 }
 

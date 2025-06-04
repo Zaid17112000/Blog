@@ -1,11 +1,9 @@
 <?php
-    require_once __DIR__ . '/../controllers/verify_jwt.php';
-    $userData = verifyJWT(); // Will redirect if invalid
+    require_once __DIR__ . '/../functions/actions/verify_jwt.php';
+    $userData = verifyJWT();
     require_once "../config/bootstrap.php";
     require_once "../config/connectDB.php";
     require_once "../functions/queries/get_categories.php";
-    require_once "../functions/queries/get_posts_by_category.php";
-    require_once "../functions/queries/get_posts_by_title.php";
 
     $user = $userData->user_id;
 
@@ -59,7 +57,6 @@
         $stmt->bindParam(":category_name", $selected_category);
         $stmt->execute();
         if ($stmt->fetchColumn() == 0) {
-            // Category doesn't exist, redirect or show all posts
             header("Location: blogsphere.php");
             exit;
         }
@@ -67,7 +64,8 @@
         $params[':category'] = $selected_category;
     }
 
-    // Append conditions to both queries
+    $conditions[] = "p.post_status = 'published'";
+
     if (!empty($conditions)) {
         $queryCountPosts .= " WHERE " . implode(" AND ", $conditions);
         $queryGetPosts .= " WHERE " . implode(" AND ", $conditions);
@@ -139,8 +137,9 @@
 
     <script src="../../assets/js/toggle_sidebar.js"></script>
     <script src="../../assets/js/category_scrolling.js"></script>
-    <script src="../../assets/js/handle_save_post.js"></script>
+    <!-- <script src="../../assets/js/handle_save_post.js"></script> -->
     <script src="../../assets/js/handle_like_post.js"></script>
+    <script src="../../assets/js/handle_hamburger.js"></script>
 
     <script>
         function debounce(func, timeout = 300) {
@@ -153,9 +152,11 @@
 
         // Update your search input event listener
         const searchInput = document.getElementById('searchBar');
-        searchInput.addEventListener('input', debounce(function(e) {
-            handleSearchInput(e.target.value);
-        }));
+        if (searchInput) {
+            searchInput.addEventListener('input', debounce(function(e) {
+                handleSearchInput(e.target.value);
+            }));
+        }
 
         <?php require_once "../../assets/js/handle_search_input.js"; ?>
         
@@ -175,6 +176,16 @@
             const date = new Date(dateString);
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         }
+
+        const searchIcon = document.getElementById('searchIcon');
+        const searchBar = document.getElementById('searchBar');
+
+        searchIcon.addEventListener('click', () => {
+            searchBar.classList.toggle('visible');
+            if (searchBar.classList.contains('visible')) {
+                searchBar.focus();
+            }
+        });
     </script>
 </body>
 </html>

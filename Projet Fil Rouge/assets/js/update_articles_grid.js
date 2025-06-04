@@ -9,7 +9,7 @@ function updateArticlesGrid(posts, searchTerm) {
     let html = '';
     
     posts.forEach(post => {
-        const isLiked = post.is_liked || false; // Make sure your API returns this
+        const isLiked = post.is_liked || false;
         const likeClass = isLiked ? 'liked' : '';
         const iconClass = isLiked ? 'fa-solid' : 'fa-regular';
 
@@ -78,31 +78,47 @@ function attachLikeEventListeners() {
             } else {
                 likeCount.textContent = parseInt(likeCount.textContent) + 1;
             }
-            
-            // Send the like/unlike request
-            // handleLikePost(postId, !isLiked);
         });
     });
 }
 
 function attachSaveEventListeners() {
     document.querySelectorAll('.save').forEach(saveBtn => {
-        saveBtn.addEventListener('click', function() {
+        saveBtn.addEventListener('click', async function() {
             const postId = this.getAttribute('data-post-id');
-            
-            // Toggle visual state immediately for better UX
             const isSaved = this.classList.contains('saved');
-            this.classList.toggle('saved');
             
-            // Update the icon
-            if (this.classList.contains('saved')) {
-                this.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="save-svg"><path fill="#000" d="M7.5 3.75a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-14a2 2 0 0 0-2-2z"></path></svg>`;
-            } else {
-                this.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="save-svg"><path fill="#000" d="M17.5 1.25a.5.5 0 0 1 1 0v2.5H21a.5.5 0 0 1 0 1h-2.5v2.5a.5.5 0 0 1-1 0v-2.5H15a.5.5 0 0 1 0-1h2.5zm-11 4.5a1 1 0 0 1 1-1H11a.5.5 0 0 0 0-1H7.5a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-8.5a.5.5 0 0 0-1 0v7.48l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4z"></path></svg>`;
+            try {
+                const response = await fetch("../functions/actions/handle_save_posts.php", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `post_id=${postId}`
+                });
+
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    this.classList.toggle('saved');
+                    // Update the icon
+                    if (this.classList.contains('saved')) {
+                        this.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="save-svg"><path fill="#000" d="M7.5 3.75a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-14a2 2 0 0 0-2-2z"></path></svg>`;
+                    } else {
+                        this.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" class="save-svg"><path fill="#000" d="M17.5 1.25a.5.5 0 0 1 1 0v2.5H21a.5.5 0 0 1 0 1h-2.5v2.5a.5.5 0 0 1-1 0v-2.5H15a.5.5 0 0 1 0-1h2.5zm-11 4.5a1 1 0 0 1 1-1H11a.5.5 0 0 0 0-1H7.5a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4v-8.5a.5.5 0 0 0-1 0v7.48l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4z"></path></svg>`;
+                    }
+                } else {
+                    console.error('Save failed:', result.message);
+                    // Revert the UI change if the request failed
+                    this.classList.toggle('saved');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Revert the UI change if the request failed
+                this.classList.toggle('saved');
             }
-            
-            // Send the save/unsave request
-            handleSavePost(postId, !isSaved);
         });
     });
 }

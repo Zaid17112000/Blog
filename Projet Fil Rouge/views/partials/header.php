@@ -1,8 +1,10 @@
 <?php
+    require_once __DIR__ . '/../../php/controllers/verify_jwt.php';
+    $userData = verifyJWT();
     require_once "../../php/config/connectDB.php";
 
     // Check if user is logged in before trying to access session
-    $user_id = isset($_SESSION["user"]) ? $_SESSION["user"] : null;
+    $user_id = $userData->user_id;
 
     if ($user_id) {
         $stmt = $pdo->prepare("SELECT user_id, img_profile FROM users WHERE user_id = :user_id");
@@ -15,7 +17,18 @@
 <header>
     <div class="container">
         <nav class="navbar">
-            <a href="homepage.php" class="logo-container"><div class="logo">Blog<span>Space</span></div></a>
+            <a href="homepage.php" class="logo-container">
+                <!-- <div class="logo5-box"></div> -->
+                <div class="logo-card">
+                    <div class="logo">
+                        <div class="logo-icon">BS</div>
+                        <div class="logo-text">BlogSpace</div>
+                    </div>
+                </div>
+                <!-- <div class="logo">
+                    Blog<span>Space</span>
+                </div> -->
+            </a>
             
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -26,9 +39,10 @@
             <ul class="nav-links">
                 <li><a href="blogsphere.php">Home</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="../../php/pages/form_contact.php">Contact</a></li>
+                <li><a href="#">Contact</a></li>
+                <li class="abb-blog"><a href="add_blog_ajax_draft.php">Create Blog</a></li>
             </ul>
-            
+
             <form class="form" method="POST" style="margin: 0; margin-right: 15px;">
                 <div class="search-container">
                     <div class="search-icon" id="searchIcon">
@@ -116,7 +130,7 @@
 
     logout.addEventListener("click", async () => {
         try {
-            const response = await fetch("../../php/controllers/logout.php", {
+            const response = await fetch("../../php/functions/actions/logout.php", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -132,23 +146,5 @@
             console.error('Error:', error);
             alert('An error occurred while deleting the post');
         }
-    });
-
-    const searchIcon = document.getElementById('searchIcon');
-    const searchBar = document.getElementById('searchBar');
-
-    searchIcon.addEventListener('click', () => {
-        searchBar.classList.toggle('visible');
-        if (searchBar.classList.contains('visible')) {
-            searchBar.focus();
-        }
-    });
-
-    const hamburger = document.getElementById("hamburger");
-    const navLinks = document.querySelector(".nav-links");
-
-    hamburger.addEventListener("click", () => {
-        navLinks.classList.toggle("active");
-        hamburger.classList.toggle("active");
     });
 </script>

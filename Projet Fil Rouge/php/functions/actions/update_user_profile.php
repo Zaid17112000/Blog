@@ -1,13 +1,4 @@
 <?php
-    /**
-     * Updates user information in the database
-     * 
-     * @param PDO $pdo Database connection
-     * @param int $userId ID of the user to update
-     * @param array $validatedData Validated user data
-     * @return bool True on success, false on failure
-     * @throws PDOException If database operation fails
-     */
     function updateUserProfile(PDO $pdo, int $userId, array $validatedData): bool {
         $updateQuery = "UPDATE users SET 
             first_name = :first_name, 

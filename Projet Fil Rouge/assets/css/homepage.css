@@ -9,13 +9,13 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
-    z-index: 999; /* Make sure overlay is above content but below the empty-state-container */
-    display: none; /* Hidden by default */
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    display: none;
 }
 
 .overlay.show {
-    display: block; /* Show when needed */
+    display: block;
 }
 
 .empty-state-container {
@@ -35,7 +35,7 @@ body {
 }
 
 .empty-state-container.show {
-    display: block; /* Show when needed */
+    display: block;
 }
 
 .empty-state-container .empty-state-icon {
@@ -84,7 +84,6 @@ body {
     transform: translateY(0);
 }
 
-/* Hero Section */
 .hero {
     background: linear-gradient(135deg, var(--main-color), #3a5a80);
     color: white;
@@ -119,7 +118,6 @@ body {
     background-color: #f0f0f0;
 }
 
-/* Featured Article */
 .featured {
     padding: 60px 0;
 }
@@ -219,7 +217,6 @@ body {
     color: #888;
 }
 
-/* Recent Articles */
 .recent-articles {
     padding: 60px 0;
     background-color: #fff;
@@ -265,11 +262,11 @@ body {
 
 .article-content p {
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: normal; /* Preserve line breaks */
+    white-space: normal;
     color: #666;
     font-size: 14px;
     margin-bottom: 15px;
@@ -282,7 +279,6 @@ body {
     text-decoration: none;
 }
 
-/* Newsletter */
 .newsletter {
     background-color: var(--main-color);
     padding: 60px 0;
@@ -324,7 +320,10 @@ body {
     font-weight: 600;
 }
 
-/* Responsive Design */
+/* ====================================
+   RESPONSIVE MEDIA QUERIES
+   ==================================== */
+
 @media (max-width: 992px) {
     .featured-article {
         flex-direction: column;
@@ -345,14 +344,7 @@ body {
         text-align: left;
     }
 }
-/* @media (max-width: 633px) {
-    .footer-content {
-        margin-bottom: 40px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        justify-items: self-start;
-    }
-} */
+
 @media (max-width: 554px) {
     .footer-content {
         margin-bottom: 40px;
@@ -361,6 +353,7 @@ body {
         justify-items: start;
     }
 }
+
 @media (max-width: 768px) {
     .nav-links {
         display: none;

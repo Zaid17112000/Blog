@@ -8,5 +8,5 @@
     function removeLike($pdo, $comment_id, $user_id) {
         $stmt = $pdo->prepare("DELETE FROM comment_likes WHERE comment_id = ? AND user_id = ?");
         $stmt->execute([$comment_id, $user_id]);
-        return false;
+        return false;  // This is correct - returns false because the like was removed
     }

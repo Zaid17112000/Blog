@@ -47,22 +47,6 @@ if (rightArrow) {
 }
 
 /*********** */
-import Quill from 'quill';
-import 'quill/dist/quill.snow.css'; // Import Quill CSS
-
-// Initialize Quill
-var quill = new Quill('#editor-container', {
-    modules: {
-        toolbar: [
-            ['bold', 'italic', 'underline'],
-            ['link', 'blockquote', 'code-block', 'image'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }]
-        ]
-    },
-    placeholder: 'Write your blog post here...',
-    theme: 'snow'
-});
 
 // Category selection handling
 const categorySelect = document.getElementById('category');

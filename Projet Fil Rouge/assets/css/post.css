@@ -1,11 +1,11 @@
-/* Global Resets and Base Styles */
-
 body {
     line-height: 1.6;
     color: #333;
+    font-family: "Merriweather Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
-/* Navbar container */
 .navbar-container {
     display: flex;
     align-items: center;
@@ -74,7 +74,6 @@ body {
     font-size: 15px;
 }
 
-/* Article Grid */
 .articles-grid {
     display: flex;
     flex-direction: column;
@@ -82,7 +81,6 @@ body {
     gap: 40px;
 }
 
-/* Article Card */
 .article-card {
     max-width: 680px;
     width: 100%;
@@ -94,16 +92,10 @@ body {
     margin-bottom: 100px;
 }
 
-/* .article-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
-} */
-
 .title {
     font-size: 42px;
     font-weight: 700;
     line-height: 1.3;
-    /* margin-bottom: 32px; */
     margin: 0;
     color: #242424;
 }
@@ -113,7 +105,6 @@ body {
     color: #6B6B6B;
     margin: 20px 0;
     line-height: 1.7;
-    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
     margin: 0;
     margin-top: 0.92em;
     margin-bottom: 24px;
@@ -142,10 +133,6 @@ body {
 .author-info {
     display: flex;
     flex-direction: column;
-    /* 
-    flex-direction: row;
-    gap: 12px;
-    */
 }
 
 .author-name {
@@ -252,19 +239,14 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* .article-card:hover .article-image img {
-    transform: scale(1.02);
-} */
-
 .post-content {
     letter-spacing: -0.003em;
     line-height: 32px;
     margin-top: 2.14em;
     font-size: 20px;
-    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-family: "Merriweather", serif;
 }
 
-/* Apply Merriweather to the editor content */
 .ql-editor {
     font-family: "Merriweather", serif !important;
     font-optical-sizing: auto;
@@ -276,7 +258,6 @@ body {
 .comments {
     max-width: 680px;
     font-size: 14px;
-    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .comments-form {
@@ -312,9 +293,7 @@ body {
     padding: 14px;
     width: 100%;
     font-size: 14px;
-    font-family: "Merriweather Sans", sans-serif;
     font-optical-sizing: auto;
-    /* font-weight: <weight>; */
     font-style: normal;
 }
 
@@ -350,25 +329,6 @@ body {
     border-color: rgb(25, 25, 25);
     color: rgb(255, 255, 255);
     cursor: not-allowed;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 15px;
-    }
-    
-    .title {
-        font-size: 24px;
-    }
-    
-    .excerpt {
-        font-size: 16px;
-    }
-    
-    .article-content {
-        padding: 20px;
-    }
 }
 
 .settings-comment {
@@ -462,7 +422,6 @@ body {
     font-size: 18px;
 }
 .likes-container.liked .like-svg {
-    /* color: rgba(26, 137, 23, 1); */
     color: #ff0000;
 }
 .comments-card {
@@ -513,9 +472,9 @@ body {
     padding: 12px;
     border: none;
     resize: vertical;
-    font-family: inherit;
     font-size: 14px;
     outline: none;
+    font-family: "Merriweather Sans", sans-serif;
 }
 .textarea-footer {
     display: flex;
@@ -552,7 +511,6 @@ body {
 }
 
 .reply-count-toggle:hover {
-    /* color: #1a1a1a; */
     color: #6B6B6B;
     text-decoration: underline;
 }
@@ -607,7 +565,10 @@ body {
     color: #242424;
 }
 
-/* Responsive Design */
+/* ====================================
+   RESPONSIVE MEDIA QUERIES
+   ==================================== */
+   
 @media screen and (max-width: 768px) {
     .footer-content {
         grid-template-columns: repeat(2, 1fr);
@@ -627,6 +588,22 @@ body {
     .newsletter-form button {
         width: 100%;
         margin-bottom: 10px;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+    
+    .title {
+        font-size: 24px;
+    }
+    
+    .excerpt {
+        font-size: 16px;
+    }
+    
+    .article-content {
+        padding: 20px;
     }
 }
 

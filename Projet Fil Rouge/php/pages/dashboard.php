@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once __DIR__ . '/../controllers/verify_jwt.php';
+    require_once __DIR__ . '/../functions/actions/verify_jwt.php';
     $userData = verifyJWT();
     require_once "../config/connectDB.php";
     require_once "../functions/queries/dashboard/get_user_infos.php";
@@ -62,13 +62,10 @@
 
     foreach ($activity_data as $data) {
         $month_index = $data['month'] - 1;
-        if ($data['type'] == 'post') {
-            $formatted_activity[$month_index]['posts'] = (int)$data['count'];
-        } else {
-            $formatted_activity[$month_index]['comments'] = (int)$data['count'];
-        }
+        $data['type'] == 'post' 
+            ? $formatted_activity[$month_index]['posts'] = (int)$data['count']
+            : $formatted_activity[$month_index]['comments'] = (int)$data['count'];
     }
-    // $activity_json = json_encode($formatted_activity);
 ?>
 
 <!DOCTYPE html>
@@ -92,5 +89,21 @@
     <?php include "../../views/pages/dashboard_container.php"; ?>
 
     <script src="../../assets/js/toggle_sidebar_on_mobile.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle delete button clicks
+            <?php include "../../assets/js/dashboard/initialize_delete_button.js" ?>
+            initializeDeleteButtons({
+                onSuccess: (postId, postStatus) => {
+                    console.log(`Post ${postId} (${postStatus}) was deleted`);
+                    // Add any additional custom logic here
+                }
+            });
+            
+            <?php include "../../assets/js/dashboard/update_post_counts.js" ?>
+            
+            <?php include "../../assets/js/dashboard/show_toast.js" ?>
+        });
+    </script>
 </body>
 </html>

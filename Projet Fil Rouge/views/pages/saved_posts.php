@@ -8,7 +8,6 @@
     <?php endif; ?>
 
     <?php if (empty($saved_posts)): ?>
-        <!-- <p>No saved posts found.</p> -->
         <div class="no-posts-container">
             <i class="fas fa-bookmark no-posts-icon"></i>
             <h3 class="no-posts-title">No Saved Posts</h3>
@@ -29,7 +28,6 @@
                             <p class="text-muted">By: <?php echo htmlspecialchars($post['username']); ?> | <?php echo date('F j, Y', strtotime($post['post_created'])); ?></p>
                             <a href="post.php?post_id=<?php echo $post['post_id']; ?>" class="btn btn-primary">View</a>
                             <button class="btn btn-danger unsave-post" data-post-id="<?php echo $post['post_id']; ?>">Unsave</button>
-                            <!-- <a href="unsave_post.php?post_id=<?php echo $post['post_id']; ?>" class="btn btn-danger">Unsave</a> -->
                         </div>
                     </div>
                 </div>

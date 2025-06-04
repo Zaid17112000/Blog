@@ -14,12 +14,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="blogsphere.php" class="nav-link active">
+                <a href="blogsphere.php" class="nav-link">
                     <i class="fa-solid fa-house"></i> Home
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="settings.php" class="nav-link active">
                     <i class="fas fa-cog"></i> Settings
                 </a>
             </li>
@@ -66,6 +66,7 @@
             </div>
 
             <form method="POST" action="../../php/pages/settings.php">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div class="profile-form">
                     <div class="form-group">
                         <label for="first_name">First Name</label>

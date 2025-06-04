@@ -3,9 +3,9 @@
         'lifetime' => 0,
         'path' => '/',
         'domain' => $_SERVER['HTTP_HOST'],
-        'secure' => true, // Only send over HTTPS
-        'httponly' => true, // Prevent JavaScript access
-        'samesite' => 'Strict' // CSRF protection
+        'secure' => true,
+        'httponly' => true,
+        'samesite' => 'Strict'
     ]);
     session_start();
     require_once "../config/connectDB.php";
@@ -81,5 +81,6 @@
     <script src="../../assets/js/toggle_password.js"></script>
     <script src="../../assets/js/handle_bio.js"></script>
     <script src="../../assets/js/handle_img_profile.js"></script>
+    <script src="../../assets/js/handle_hamburger.js"></script>
 </body>
 </html>

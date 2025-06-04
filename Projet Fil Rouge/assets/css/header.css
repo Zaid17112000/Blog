@@ -17,7 +17,34 @@ header {
     flex: 1 0 auto;
 }
 
-.logo-container .logo {
+.logo {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    /* background: var(--main-color); */
+    background: #34495e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--main-color);;
+    color: #34495e;
+}
+
+/* .logo-container .logo {
     font-size: 24px;
     font-weight: 700;
     color: var(--main-color);
@@ -26,7 +53,7 @@ header {
 
 .logo-container .logo span {
     color: #333;
-}
+} */
 
 .nav-links {
     display: flex;
@@ -47,6 +74,10 @@ header {
 
 .nav-links a:hover {
     color: var(--main-color);
+}
+
+.nav-links .abb-blog {
+    display: none;
 }
 
 .write-button-container {
@@ -115,7 +146,6 @@ header {
     height: fit-content;
     padding: 2rem 1rem;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 4px, rgba(0, 0, 0, 0.15) 0px 2px 8px;
-    /* display: flex; */
     flex-direction: column;
     border-radius: 4px 0 0 4px;
     color: #ecf0f1;
@@ -179,7 +209,6 @@ header {
 .sign-out {
     margin-top: auto;
     padding: 0.75rem 1.5rem;
-    /* background-color: #e74c3c; */
     background-color: red;
     color: white;
     width: 100%;
@@ -197,7 +226,6 @@ header {
 }
   
 .sign-out:hover {
-    /* background-color: #c0392b; */
     background-color: #d00000;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -219,7 +247,6 @@ header {
     height: 35px;
     font-size: 16px;
     border-radius: 50%;
-    /* background-color: #3498db; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -228,10 +255,6 @@ header {
     transition: background 0.3s;
     position: relative;
     right: -20px;
-}
-
-.search-icon:hover {
-    /* background-color: #2980b9; */
 }
 
 .search-icon svg {
@@ -255,17 +278,15 @@ header {
     width: 200px;
     opacity: 1;
     margin-left: 30px;
-    /* margin-right: 20px; */
 }
 
-/* Basic styles */
 .hamburger {
     display: none;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
-    gap: 5px;
-    margin-right: 15px;
+    /* gap: 5px; */
+    margin-right: 20px;
     width: 25px;
     height: 18px;
 }
@@ -284,7 +305,6 @@ header {
     list-style: none;
 }
 
-/* Transform to X on active */
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -296,6 +316,10 @@ header {
 .hamburger.active span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
 }
+
+/* ====================================
+   RESPONSIVE MEDIA QUERIES
+   ==================================== */
 
 @media (max-width: 768px) {
     .hamburger {
@@ -316,11 +340,18 @@ header {
 
     .nav-links.active {
         display: flex;
+        position: absolute;
+        top: 84px;
+        right: 67px;
+    }
+
+    .nav-links .abb-blog {
+        display: block;
     }
 
     .write-button-container,
     .search-container,
-    .profile-container,
+    /* .profile-container, */
     .nav-links {
         display: none; /* Optional: Hide on small screens */
     }

@@ -1,11 +1,10 @@
 <?php
     session_start();
-    require_once __DIR__ . '/../controllers/verify_jwt.php';
-    $userData = verifyJWT(); // Will redirect if invalid
+    require_once __DIR__ . '/../functions/actions/verify_jwt.php';
+    $userData = verifyJWT();
     require_once "../config/connectDB.php";
     require_once "../functions/queries/get_posts_by_status.php";
 
-    // $user_id = $_SESSION["user"];
     $user_id = $userData->user_id;
 
     $draftPosts = getPostsByStatus($pdo, 'draft', $user_id);
@@ -39,6 +38,7 @@
     <?php include "../../views/partials/footer.html"; ?>
 
     <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/handle_hamburger.js"></script>
     <script>
         <?php require_once "../../assets/js/setup_delete_post.js"; ?>
         // For draft posts
@@ -51,7 +51,7 @@
                     <button class="action-button">Create Your First Draft</button>
                 </a>
             </div>`,
-            "../controllers/delete_post.php"
+            "../functions/actions/delete_post.php"
         );
     </script>
     <script src="../../assets/js/publish_post.js"></script>

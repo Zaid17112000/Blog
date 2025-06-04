@@ -1,11 +1,12 @@
 <?php
     session_start();
-    require_once __DIR__ . '/../controllers/verify_jwt.php';
-    $userData = verifyJWT(); // Will redirect if invalid
+    require_once __DIR__ . '/../functions/actions/verify_jwt.php';
+    $userData = verifyJWT();
     require_once "../config/connectDB.php";
     require_once "../functions/queries/get_posts_by_status.php";
     require_once "../functions/queries/get_likes_count.php";
     require_once "../functions/queries/get_followers_count.php";
+    require_once "../functions/queries/get_published_posts.php";
     require_once "../functions/actions/format_followers.php";
     require_once "../functions/validation/check_user_followed_profile.php";
 
@@ -24,34 +25,17 @@
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Fetch user posts
-    $queryPublishedPosts = "SELECT 
-        p.post_id, 
-        p.post_title, 
-        p.post_excerpt, 
-        p.post_img_url,
-        p.post_created, 
-        DATE_FORMAT(post_published, '%M %e, %Y') AS formatted_date,
-        COUNT(l.like_id) as like_count, 
-        COUNT(c.comment_id) as comment_count 
-    FROM posts p
-    LEFT JOIN likes l ON p.post_id = l.post_id
-    LEFT JOIN comments c ON p.post_id = c.post_id
-    WHERE p.post_status = :post_status AND p.user_id = :user_id
-    GROUP BY p.post_id
-    ORDER BY p.post_published DESC"; // Order by publication date;
-    $stmt = $pdo->prepare($queryPublishedPosts);
-    $stmt->execute(['post_status' => 'published', 'user_id' => $user_id]);
-    $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $posts = getPublishedPosts($pdo, $user_id);
 
     // Handle follow/unfollow actions
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['action']) && $_POST['action'] === 'follow') {
-            require_once "../controllers/follow_user.php";
+            require_once "../functions/actions/follow_user.php";
             if (followToUser($pdo, $user_id, $_POST['profile_user_id'])) {
                 $_SESSION['message'] = "You've successfully followed!";
             }
         } elseif (isset($_POST['action']) && $_POST['action'] === 'unfollow') {
-            require_once "../controllers/unfollow_user.php";
+            require_once "../functions/actions/unfollow_user.php";
             if (unfollowFromUser($pdo, $user_id, $_POST['profile_user_id'])) {
                 $_SESSION['message'] = "You've unfollowed.";
             }
@@ -95,5 +79,6 @@
     <?php include "../../views/partials/footer.html"; ?>
 
     <script src="../../assets/js/toggle_sidebar.js"></script>
+    <script src="../../assets/js/handle_hamburger.js"></script>
 </body>
 </html>

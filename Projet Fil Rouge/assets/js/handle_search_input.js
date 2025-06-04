@@ -1,12 +1,11 @@
 async function handleSearchInput(value) {
     if (!value.trim()) {
-        // If search is empty, reload the page to show all posts
         window.location.href = 'blogsphere.php';
         return;
     }
 
     try {
-        const response = await fetch("../controllers/handle_search.php", {
+        const response = await fetch("../functions/actions/handle_search.php", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -24,10 +23,8 @@ async function handleSearchInput(value) {
             updateArticlesGrid(result.posts, result.searchTerm);
         } else {
             console.error('Search failed:', result.message);
-            // Show error message to user
         }
     } catch (error) {
         console.error('Error:', error);
-        // Show error message to user
     }
 }

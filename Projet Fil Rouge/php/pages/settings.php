@@ -1,11 +1,16 @@
 <?php
     session_start();
-    require_once __DIR__ . '/../controllers/verify_jwt.php';
-    $userData = verifyJWT(); // Will redirect if invalid
+    require_once __DIR__ . '/../functions/actions/verify_jwt.php';
+    $userData = verifyJWT();
     require_once "../config/connectDB.php";
     require_once "../functions/queries/get_user_infos.php";
     require_once "../functions/validation/validate_user_input_settings.php";
     require_once "../functions/actions/update_user_profile.php";
+    require_once "../functions/validation/validate_csrf_token.php";
+
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
 
     $user_id = $userData->user_id;
 
@@ -17,6 +22,8 @@
     $success = false;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        validateCsrfToken();
+
         $validationResult = validateUserProfile($_POST, $user, $pdo);
         $errors = $validationResult['errors'];
         $validatedData = $validationResult['data'];

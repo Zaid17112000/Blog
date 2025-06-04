@@ -5,6 +5,7 @@
     require_once "../functions/auth/user_login.php";
     require_once "../functions/actions/generate_jwt_token.php";
     require_once "../functions/actions/set_jwt_coockie.php";
+    require_once "../functions/validation/validate_csrf_token.php";
 
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
@@ -84,5 +85,6 @@
     <?php include "../../views/partials/footer_login_signup.php"; ?>
 
     <script src="../../assets/js/toggle_password.js"></script>
+    <script src="../../assets/js/handle_hamburger.js"></script>
 </body>
 </html>

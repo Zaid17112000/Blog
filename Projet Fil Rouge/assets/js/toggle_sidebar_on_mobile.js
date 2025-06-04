@@ -12,7 +12,7 @@ overlay.addEventListener('click', () => {
     sidebar.classList.remove('active');
 });
 
-// Close sidebar when clicking on a nav link (optional)
+// Close sidebar when clicking on a nav link
 const navLinks = document.querySelectorAll('.nav-link');
 navLinks.forEach(link => {
     link.addEventListener('click', () => {

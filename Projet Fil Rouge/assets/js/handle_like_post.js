@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.addEventListener('click', async function(e) {
         const likeIcon = e.target.closest('.like-svg');
         if (!likeIcon) return;
-        
-        // Prevent default if it's a link or button
+
         e.preventDefault();
         
         const likesContainer = e.target.closest('.likes');
@@ -11,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const likeCountSpan = likesContainer.querySelector('.like-count');
 
         try {
-            const response = await fetch('../controllers/like_post.php', {
+            const response = await fetch('../functions/actions/like_post.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
