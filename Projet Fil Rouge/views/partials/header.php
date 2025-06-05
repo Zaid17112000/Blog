@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__ . '/../../php/controllers/verify_jwt.php';
+    require_once __DIR__ . '/../../php/functions/actions/verify_jwt.php';
     $userData = verifyJWT();
     require_once "../../php/config/connectDB.php";
 
@@ -30,12 +30,6 @@
                 </div> -->
             </a>
             
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
             <ul class="nav-links">
                 <li><a href="blogsphere.php">Home</a></li>
                 <li><a href="#">About</a></li>
@@ -55,6 +49,12 @@
                     <?php endif; ?>
                 </div>
             </form>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             
             <div class="write-button-container">
                 <div class="write-button-wrapper">

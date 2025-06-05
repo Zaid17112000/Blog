@@ -307,6 +307,7 @@ body {
     border-radius: 4px;
     font-size: 14px;
     margin-bottom: 15px;
+    width: fit-content;
 }
 
 .featured-content .article-card__footer {

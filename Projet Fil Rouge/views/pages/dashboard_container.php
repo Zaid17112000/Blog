@@ -189,7 +189,7 @@
                 
                 <div class="activity-header" style="margin-top: 20px;">
                     <h2>Saved Posts</h2>
-                    <a href="saved_posts" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                    <a href="saved_posts.php" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <ul class="activity-list">
                     <?php if (empty($saved_posts)): ?>

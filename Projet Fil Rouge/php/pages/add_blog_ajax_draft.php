@@ -40,8 +40,11 @@
 
     if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
         $post_id = filter_var($_GET['post_id'], FILTER_VALIDATE_INT);
-
         $post = queryPost($pdo, $post_id, $user_id);
+
+        if (!$post) {
+            throw new Exception("Post not found or access denied");
+        }
 
         if ($post) {
             $post_data['post_id'] = $post_id;
@@ -65,6 +68,8 @@
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (isset($_POST["publish"])) {
+        $pdo->beginTransaction();
+    
         validateCsrfToken();
 
         try {
@@ -130,7 +135,7 @@
             // );
 
             if ($post_data['post_id']) {
-                updatePost($pdo, $post_title, $post_content, $post_excerpt, $post_img_url, $post_status, $post_data, $user_id);
+                updatePost($pdo, $post_title, $post_content, $post_excerpt, $post_img_url, $post_status, $post_data['post_id'], $user_id);
     
                 // Delete existing categories and tags
                 $pdo->prepare("DELETE FROM categories_posts WHERE post_id = ?")->execute([$post_data['post_id']]);
@@ -146,7 +151,7 @@
                     $category_id = queryCategory($pdo, $category_name);
 
                     if ($category_id) {
-                        insertCategoryPost($pdo, $post_data, $category_id);
+                        insertCategoryPost($pdo, $post_data['post_id'], $category_id);
                     }
                 }
             }
@@ -205,8 +210,11 @@
             $post_data['selected_tags'] = $tags_name;
 
             header("Location: blogsphere.php");
+
+            $pdo->commit();
         } 
         catch (PDOException $e) {
+            $pdo->rollBack();
             $error_message = "Error: " . $e->getMessage();
             // Update $post_data to reflect submitted values
             $post_data['post_title'] = $post_title;
