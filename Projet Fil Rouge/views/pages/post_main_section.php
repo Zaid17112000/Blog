@@ -7,27 +7,29 @@
                 <p class="excerpt"><?= htmlspecialchars($post["post_excerpt"]); ?></p>
                 <div class="author">
                     <div class="author-image">
-                        <img src="<?= empty($user['img_profile']) ? 'https://miro.medium.com/v2/resize:fill:48:48/1*dmbNkD5D-u45r44go_cf0g.png' : $user['img_profile']; ?>" alt="Author profile">
+                        <img src="<?= empty($post_author['img_profile']) ? 'https://miro.medium.com/v2/resize:fill:48:48/1*dmbNkD5D-u45r44go_cf0g.png' : $post_author['img_profile']; ?>" alt="Author profile">
                     </div>
                     <div class="author-info">
                         <div class="author-name" style="display: flex; justify-content: center; align-items: center; column-gap: 12px;">
-                            <span><?= htmlspecialchars($user['last_name'] . ' ' . $user['first_name']); ?></span> 
+                            <span><a href="profile.php?user_id=<?= $post_author['user_id'] ?>" style="color: #242424;"><?= htmlspecialchars($post_author['last_name'] . ' ' . $post_author['first_name']); ?></a></span> 
                             <!-- <span style="margin: 0px 8px;">
                                 <span class="ar b bu am bx">·</span>
                             </span> -->
-                            <form method="post" class="follow-form">
-                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                                <input type="hidden" name="profile_user_id" value="<?= $user_id ?>">
-                                <?php if ($isFollowed): ?>
-                                    <button type="submit" name="action" value="unfollow" class="follow followed">
-                                        Following
-                                    </button>
-                                <?php else: ?>
-                                    <button type="submit" name="action" value="follow" class="follow">
-                                        Follow
-                                    </button>
-                                <?php endif; ?>
-                            </form>
+                            <?php if ($post_author && $post_author && $post_author != $post['user_id']): ?>
+                                <form method="post" class="follow-form">
+                                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                                    <input type="hidden" name="profile_user_id" value="<?= $user_id ?>">
+                                    <?php if ($is_following): ?>
+                                        <button type="submit" name="action" value="unfollow" class="follow followed">
+                                            Following
+                                        </button>
+                                    <?php else: ?>
+                                        <button type="submit" name="action" value="follow" class="follow">
+                                            Follow
+                                        </button>
+                                    <?php endif; ?>
+                                </form>
+                            <?php endif; ?>
                             <div class="post-date"><?= date('M d, Y', strtotime($post["post_published"])); ?></div>
                         </div>
                     </div>
@@ -76,12 +78,12 @@
                     <div style="margin-bottom: 12px; display: flex; align-items: center;">
                         <div style="display: block; position: relative;">
                             <div style="display: block; position: relative;">
-                                <img alt="Zayd el Khobzi" style="display: block; box-sizing: border-box; border-radius: 50%; background-color: #F2F2F2; vertical-align: middle;" src="https://miro.medium.com/v2/resize:fill:48:48/1*dmbNkD5D-u45r44go_cf0g.png" width="32" height="32" loading="lazy">
+                                <img alt="Zayd el Khobzi" style="display: block; box-sizing: border-box; border-radius: 50%; background-color: #F2F2F2; vertical-align: middle;" src=<?= $current_user['img_profile'] ?: 'https://miro.medium.com/v2/resize:fill:48:48/1*dmbNkD5D-u45r44go_cf0g.png' ?> width="32" height="32" loading="lazy">
                             </div>
                         </div>
                         <div style="margin-left: 12px; display: flex; align-items: flex-start; flex-direction: column; justify-content: center;">
                             <div style="display: flex; align-items: baseline; flex-wrap: wrap;">
-                                <span style="font-weight: 400; font-size: 14px; line-height: 20px; word-break: break-word; padding-right: 4px;">Zayd el Khobzi</span>
+                                <span style="font-weight: 400; font-size: 14px; line-height: 20px; word-break: break-word; padding-right: 4px;"><?= $current_user["last_name"] . " " . $current_user["first_name"] ?></span>
                             </div>
                         </div>
                     </div>

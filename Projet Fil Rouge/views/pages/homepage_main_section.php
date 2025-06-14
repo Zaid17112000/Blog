@@ -17,13 +17,13 @@
                     </div>
                     <div class="article-content">
                         <span class="category"><?= htmlspecialchars($post["category_name"]) ?></span>
-                        <h3><?= htmlspecialchars($post["post_title"]) ?></h3>
+                        <h3><a href="post.php?post_id=<?= $post['post_id']; ?>" style="color: #333;"><?= htmlspecialchars($post["post_title"]); ?></a></h3>
                         <p><?= $post["content_preview"] ?></p>
                         <a href="post.php?post_id=<?= $post['post_id']; ?>" class="read-more">Read More</a>
                     </div>
                 </div>
             <?php endforeach; ?>
-            <!-- Article 1 -->
+            <!-- Article 1
             <div class="article-card">
                 <div class="article-image">
                     <img src="https://th.bing.com/th/id/OIP.vmuf2q-BmusGPlKlgH3O7AHaEE?pid=ImgDet&w=178&h=97&c=7&dpr=1.5" alt="Article image">
@@ -34,9 +34,9 @@
                     <p>Recent studies have shown that regular meditation can significantly reduce stress and improve overall mental health...</p>
                     <a href="#" class="read-more">Read More</a>
                 </div>
-            </div>
+            </div> -->
             
-            <!-- Article 2 -->
+            <!-- Article 2
             <div class="article-card">
                 <div class="article-image">
                     <img src="https://th.bing.com/th/id/OIP.keC9wlFvi67tL0aNaUaenwHaEO?pid=ImgDet&w=178&h=101&c=7&dpr=1.5" alt="Article image">
@@ -47,9 +47,9 @@
                     <p>As companies embrace remote work permanently, new strategies are emerging for building cohesive and productive teams...</p>
                     <a href="#" class="read-more">Read More</a>
                 </div>
-            </div>
+            </div> -->
             
-            <!-- Article 3 -->
+            <!-- Article 3
             <div class="article-card">
                 <div class="article-image">
                     <img src="https://th.bing.com/th/id/OIP.wLqpqaph-eKhj0-2tpbADAHaEK?w=1280&h=720&rs=1&pid=ImgDetMain" alt="Article image">
@@ -60,7 +60,7 @@
                     <p>Beyond the typical tourist hotspots, these lesser-known destinations offer authentic experiences without the crowds...</p>
                     <a href="#" class="read-more">Read More</a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

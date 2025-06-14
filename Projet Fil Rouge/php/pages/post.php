@@ -13,10 +13,21 @@
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
 
-    $user_id = $userData->user_id;
+    $current_user_id = $userData->user_id;
 
     // Get post_id from URL
     $post_id = isset($_GET['post_id']) ? (int)$_GET['post_id'] : 0;
+
+    $stmt = $pdo->prepare("SELECT 
+        first_name, 
+        last_name, 
+        img_profile
+    FROM users 
+    -- LEFT JOIN user_follows uf ON uf.user_id = users.user_id
+    WHERE users.user_id = :user_id
+    GROUP BY users.user_id");
+    $stmt->execute(['user_id' => $current_user_id]);
+    $current_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $queryPost = "SELECT * FROM posts WHERE post_id = :post_id";
     $stmt = $pdo->prepare($queryPost);
@@ -30,10 +41,10 @@
     }
 
     $stmt = $pdo->prepare("SELECT * FROM users WHERE user_id = :user_id");
-    $stmt->execute(["user_id" => $user_id]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->execute(["user_id" => $post['user_id']]);
+    $post_author = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $comments = getComments($pdo, $user_id, $post_id);
+    $comments = getComments($pdo, $current_user_id, $post_id);
 
     // Organize comments into a nested tree structure
     $commentTree = [];
@@ -74,30 +85,30 @@
     }
 
     // Check if the current user liked this post
-    $is_liked = checkUserLikePost($pdo, $user_id, $post_id);
+    $is_liked = checkUserLikePost($pdo, $current_user_id, $post_id);
     $like_class = $is_liked ? 'liked' : '';
 
     // Get like count for this post
     $like_count = likesCount($pdo, $post_id);
 
     // Check if the current user saved this post
-    $is_saved = checkUserSavePost($pdo, $user_id, $post['post_id']);
+    $is_saved = checkUserSavePost($pdo, $current_user_id, $post['post_id']);
     $save_class = $is_saved ? 'saved' : '';
 
     // Check if current user is following this post's author
-    // $is_following = checkUserFollowPostAuthor($pdo, $user_id, $post['user_id']);
+    // $is_following = checkUserFollowPostAuthor($pdo, $current_user_id, $post['user_id']);
 
     // Handle follow/unfollow actions
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         validateCsrfToken();
         if (isset($_POST['action']) && $_POST['action'] === 'follow') {
             require_once "../functions/actions/follow_user.php";
-            if (followToUser($pdo, $user_id, $_POST['profile_user_id'])) {
+            if (followToUser($pdo, $current_user_id, $post['user_id'])) {
                 $_SESSION['message'] = "You've successfully followed!";
             }
         } elseif (isset($_POST['action']) && $_POST['action'] === 'unfollow') {
             require_once "../functions/actions/unfollow_user.php";
-            if (unfollowFromUser($pdo, $user_id, $_POST['profile_user_id'])) {
+            if (unfollowFromUser($pdo, $current_user_id, $post['user_id'])) {
                 $_SESSION['message'] = "You've unfollowed.";
             }
         }
@@ -106,17 +117,17 @@
     }
 
     // Check if current user is followed to this profile
-    $isFollowed = false;
-    if ($user_id) {
+    $is_following  = false;
+    if ($current_user_id && $post_author) {
         $stmt = $pdo->prepare("SELECT 1 
-            FROM Follow_Users su 
-            JOIN Followers s ON su.follower_id = s.follower_id
-            WHERE su.user_id = :profile_user_id AND s.user_id = :current_user_id");
+            FROM user_follows 
+            WHERE follower_user_id = :current_user_id
+            AND following_user_id = :author_id");
         $stmt->execute([
-            'profile_user_id' => $user_id,
-            'current_user_id' => $userData->user_id
+            'current_user_id' => $current_user_id,
+            'author_id' => $post['user_id']
         ]);
-        $isFollowed = $stmt->fetchColumn();
+        $is_following  = $stmt->fetchColumn();
     }
 ?>
 

@@ -10,8 +10,12 @@
     require_once "../functions/actions/format_followers.php";
     require_once "../functions/validation/check_user_followed_profile.php";
 
+    // Get profile user ID from URL parameter
+    $profile_user_id = isset($_GET['user_id']) ? (int)$_GET['user_id'] : $userData->user_id;
+
     // Fetch user data
-    $user_id = $userData->user_id;
+    $current_user_id = $userData->user_id;
+
     $stmt = $pdo->prepare("SELECT 
         first_name, 
         last_name, 
@@ -21,37 +25,37 @@
     -- LEFT JOIN user_follows uf ON uf.user_id = users.user_id
     WHERE users.user_id = :user_id
     GROUP BY users.user_id");
-    $stmt->execute(['user_id' => $user_id]);
+    $stmt->execute(['user_id' => $profile_user_id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Fetch user posts
-    $posts = getPublishedPosts($pdo, $user_id);
+    $posts = getPublishedPosts($pdo, $profile_user_id);
 
     // Handle follow/unfollow actions
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['action']) && $_POST['action'] === 'follow') {
             require_once "../functions/actions/follow_user.php";
-            if (followToUser($pdo, $user_id, $_POST['profile_user_id'])) {
+            if (followToUser($pdo, $current_user_id, $profile_user_id)) {
                 $_SESSION['message'] = "You've successfully followed!";
             }
         } elseif (isset($_POST['action']) && $_POST['action'] === 'unfollow') {
             require_once "../functions/actions/unfollow_user.php";
-            if (unfollowFromUser($pdo, $user_id, $_POST['profile_user_id'])) {
+            if (unfollowFromUser($pdo, $current_user_id, $profile_user_id)) {
                 $_SESSION['message'] = "You've unfollowed.";
             }
         }
-        header("Location: ".$_SERVER['PHP_SELF']);
+        header("Location: ".$_SERVER['PHP_SELF']."?user_id=".$profile_user_id);
         exit();
     }
 
     // Check if current user is followed to this profile
     $isFollowed = false;
-    if ($user_id) {
-        $isFollowed = checkUserFollowedProfile($pdo, $user_id, $userData);
+    if ($current_user_id) {
+        $isFollowed = checkUserFollowedProfile($pdo, $profile_user_id, $current_user_id);
     }
 
     // Get follower count
-    $followerCount = getFollowersCount($pdo, $user_id);
+    $followerCount = getFollowersCount($pdo, $profile_user_id);
 ?>
 
 <!DOCTYPE html>

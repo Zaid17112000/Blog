@@ -42,7 +42,7 @@
                     $profileImagePath = $validateInputEntry['data']['profile_image_path'] ?? null;
                     $hashed_password = $validateInputEntry['data']['hashed_password'];
                     
-                    $signup = userSignup($pdo, $prenom, $nom, $email, $bio, $profileImagePath, $hashed_password);
+                    $signup = userSignup($pdo, $prenom, $nom, $email, $bio, $profileImagePath, 'author', $hashed_password);
                     if($signup) {
                         header("Location: login.php");
                         exit();

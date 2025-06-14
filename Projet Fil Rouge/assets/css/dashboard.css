@@ -393,7 +393,7 @@ body {
 .activity-content h4 {
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: -2px;
     color: var(--dark-color);
     transition: color 0.3s ease;
 }
@@ -433,6 +433,10 @@ body {
 .activity-content small {
     color: #999;
     font-size: 12px;
+}
+
+.activity-content a {
+    text-decoration: none;
 }
 
 .activity-status {

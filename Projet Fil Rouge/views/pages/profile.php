@@ -47,7 +47,7 @@
                     </div>
                     <div class="bb"></div>
                 <?php endforeach; ?>
-            <?php else : ?>
+            <?php elseif ($profile_user_id === $current_user_id) : ?>
                 <div class="no-posts-message">
                     <p>No posts have been published yet. Start sharing your ideas by creating a new post!</p>
                     <a href="add_blog_ajax_draft.php"><button class="action-button">Create Your First Post</button></a>
@@ -67,7 +67,7 @@
             <p class="bio"><?= htmlspecialchars($user['bio']); ?></p>
             <div>
                 <form method="post" class="follow-form">
-                    <input type="hidden" name="profile_user_id" value="<?= $user_id ?>">
+                    <input type="hidden" name="profile_user_id" value="<?= $profile_user_id ?>">
                     <?php if ($isFollowed): ?>
                         <button type="submit" name="action" value="unfollow" class="follow followed">
                             Following

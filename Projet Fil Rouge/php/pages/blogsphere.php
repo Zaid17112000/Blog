@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once __DIR__ . '/../functions/actions/verify_jwt.php';
     $userData = verifyJWT();
     require_once "../config/bootstrap.php";
@@ -13,7 +14,7 @@
     $selected_category = isset($_GET['category']) ? urldecode($_GET['category']) : null;
 
     // Pagination parameters
-    $posts_per_page = 2;
+    $posts_per_page = 4;
     $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Gets the current page number from URL (?page=X), defaults to 1
     if ($current_page < 1) {
         $current_page = 1;
@@ -130,14 +131,14 @@
     <?php include "../../views/pages/pagination.php"; ?>
     
     <!-- Newsletter -->
-    <?php include "../../views/partials/newsletter.html"; ?>
+    <?php include "../../views/partials/newsletter.php"; ?>
 
     <!-- Footer -->
     <?php include "../../views/partials/footer.html"; ?>
 
     <script src="../../assets/js/toggle_sidebar.js"></script>
     <script src="../../assets/js/category_scrolling.js"></script>
-    <!-- <script src="../../assets/js/handle_save_post.js"></script> -->
+    <script src="../../assets/js/handle_save_post.js"></script>
     <script src="../../assets/js/handle_like_post.js"></script>
     <script src="../../assets/js/handle_hamburger.js"></script>
 

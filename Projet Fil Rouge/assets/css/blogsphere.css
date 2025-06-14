@@ -282,6 +282,10 @@ body {
     justify-content: center;
     position: relative;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
+    overflow-wrap: break-word; /* ✅ prevents long words from overflowing */
+    word-break: break-word;     /* ✅ breaks long words if needed */
+    overflow: hidden;           /* Optional: hides anything that still overflows */
+    max-width: 100%;            /* Ensures content doesn't go beyond parent */
 }
 
 .featured-content::before {

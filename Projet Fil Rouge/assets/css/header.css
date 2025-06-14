@@ -321,11 +321,9 @@ header {
    RESPONSIVE MEDIA QUERIES
    ==================================== */
 
-@media (max-width: 996px) {
-/* @media (max-width: 1030px) { */
+@media (max-width: 768px) {
     .hamburger {
         display: flex;
-        /* margin: 0; */
     }
 
     .nav-links {
@@ -344,11 +342,15 @@ header {
         display: flex;
         position: absolute;
         top: 84px;
-        right: 172px;
+        right: 67px;
     }
 
-    /* .write-button-container, */
-    /* .search-container, */
+    .nav-links .abb-blog {
+        display: block;
+    }
+
+    .write-button-container,
+    .search-container,
     /* .profile-container, */
     .nav-links {
         display: none; /* Optional: Hide on small screens */
@@ -357,25 +359,5 @@ header {
     .navbar {
         justify-content: space-between;
         align-items: center;
-    }
-}
-
-@media (max-width: 788px) {
-    .write-button-container {
-        display: none;
-    }
-
-    .nav-links .abb-blog {
-        display: block;
-    }
-
-    .nav-links.active {
-        right: 56px;
-    }
-}
-
-@media (max-width: 680px) {
-    .search-container {
-        display: none;
     }
 }

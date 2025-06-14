@@ -12,6 +12,7 @@
     require_once "../functions/queries/dashboard/get_published_posts.php";
     require_once "../functions/queries/dashboard/get_draft_posts.php";
     require_once "../functions/queries/dashboard/get_user_activity.php";
+    require_once "../functions/queries/dashboard/get_all_users.php";
 
     $user_id = $userData->user_id;
 
@@ -101,9 +102,9 @@
             });
             
             <?php include "../../assets/js/dashboard/update_post_counts.js" ?>
-            
             <?php include "../../assets/js/dashboard/show_toast.js" ?>
         });
+
     </script>
 </body>
 </html>

@@ -179,6 +179,10 @@
     color: #6B6B6B;
     font-size: 13px;
     margin-top: 12px;
+    overflow-wrap: break-word; /* ✅ prevents long words from overflowing */
+    word-break: break-word;     /* ✅ breaks long words if needed */
+    overflow: hidden;           /* Optional: hides anything that still overflows */
+    max-width: 100%;            /* Ensures content doesn't go beyond parent */
 }
 
 .profile .profile-header div:first-child div {

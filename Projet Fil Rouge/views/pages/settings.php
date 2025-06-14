@@ -24,7 +24,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="../controllers/logout.php" class="nav-link">
+                <a href="followers.php" class="nav-link">
+                    <i class="fa-solid fa-user-plus"></i> Followers
+                </a>
+            </li>
+            <li class="nav-item" style="display: <?= $user["user_role"] !== 'admin' ? 'none' : 'block' ?>">
+                <a href="admin_overview.php" class="nav-link">
+                    <i class="fa-solid fa-briefcase"></i> Admin Overview
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../functions/actions/logout.php" class="nav-link">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </li>
@@ -34,9 +44,6 @@
     <main class="main-content">
         <header class="header">
             <h1>Profile Settings</h1>
-            <div>
-                <span>Member since: <?= date('M d, Y', strtotime($user['user_registered_at'])); ?></span>
-            </div>
         </header>
 
         <?php if ($success): ?>

@@ -10,7 +10,7 @@
                 <div class="post-card" data-post-id="<?= $pps['post_id'] ?>" data-post-status="published">
                     <div class="post-image" style="background-image: url('<?= $pps["post_img_url"] ?>')"></div>
                     <div class="post-content">
-                        <h2 class="post-title"><?= $pps["post_title"] ?></h2>
+                        <h2 class="post-title"><a href="post.php?post_id=<?= $pps['post_id']; ?>" style="color: #333;"><?= htmlspecialchars($pps["post_title"]); ?></a></h2>
                         <div class="post-meta">Published on <?= $pps["formatted_date"] ?> • 5 min read</div>
                         <p class="post-excerpt"><?= $pps["post_excerpt"] ?></p>
                         <a href="post.php?post_id=<?= $pps['post_id']; ?>" class="read-more">Read More</a>

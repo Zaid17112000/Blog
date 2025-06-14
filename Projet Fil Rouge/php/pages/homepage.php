@@ -39,7 +39,7 @@
     <?php include "../../views/pages/homepage_main_section.php" ?>
     
     <!-- Newsletter -->
-    <?php include "../../views/partials/newsletter.html" ?>
+    <?php include "../../views/partials/newsletter.php"; ?>
     
     <!-- Footer -->
     <?php include "../../views/partials/footer.html" ?>
@@ -47,5 +47,52 @@
     <script src="../../assets/js/toggle_sidebar.js"></script>
     <script src="../../assets/js/hide_bio.js"></script>
     <script src="../../assets/js/handle_hamburger.js"></script>
+    <script>
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const messageDiv = document.getElementById('subscriptionMessage');
+            
+            fetch('subscribe.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = '#00e800';
+                    messageDiv.textContent = data.message;
+                    form.reset(); // Clear the form
+                    
+                    // Hide message after 5 seconds
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 5000);
+                } else {
+                    // Show error message
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = 'red';
+                    messageDiv.textContent = data.error || 'Subscription failed';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                messageDiv.style.display = 'block';
+                messageDiv.className = 'error';
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = 'An error occurred. Please try again.';
+                return {success: false, error: 'Server error'}; // Fallback
+            });
+        });
+    </script>
 </body>
 </html>

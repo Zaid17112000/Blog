@@ -15,21 +15,14 @@ CREATE TABLE Users (
     bio TEXT
 );
 
--- Followers table
-CREATE TABLE Followers (
-    follower_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    follower_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
-);
-
--- Follow relationships (Users following other users)
-CREATE TABLE Follow_Users (
-    user_id INT NOT NULL,
-    follower_id INT NOT NULL,
-    PRIMARY KEY (user_id, follower_id),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (follower_id) REFERENCES Followers(follower_id) ON DELETE CASCADE
+-- Create a single follow relationship table
+CREATE TABLE User_Follows (
+    follower_user_id INT NOT NULL,  -- The user who is doing the following
+    following_user_id INT NOT NULL, -- The user who is being followed
+    follow_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (follower_user_id, following_user_id),
+    FOREIGN KEY (follower_user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (following_user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
 -- Categories table
@@ -122,13 +115,13 @@ CREATE TABLE Comment_Likes (
     FOREIGN KEY (comment_id) REFERENCES Comments(comment_id) ON DELETE CASCADE
 );
 
--- Contact messages from users
-CREATE TABLE Messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    subject VARCHAR(255) NOT NULL,
-    message TEXT NOT NULL,
-    status ENUM('pending', 'replied') DEFAULT 'pending',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+-- Subscribers
+CREATE TABLE Subscribers (
+    subscriber_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    user_id INT NULL,  -- Link to Users table if registered user
+    is_active BOOLEAN DEFAULT TRUE,
+    subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    unsubscribe_token VARCHAR(32) UNIQUE,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE SET NULL
 );

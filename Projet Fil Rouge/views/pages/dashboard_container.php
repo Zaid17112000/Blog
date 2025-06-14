@@ -24,7 +24,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="../controllers/logout.php" class="nav-link">
+                <a href="followers.php" class="nav-link">
+                    <i class="fa-solid fa-user-plus"></i> Followers
+                </a>
+            </li>
+            <li class="nav-item" style="display: <?= $user["user_role"] !== 'admin' ? 'none' : 'block' ?>">
+                <a href="admin_overview.php" class="nav-link">
+                    <i class="fa-solid fa-briefcase"></i> Admin Overview
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../functions/actions/logout.php" class="nav-link">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </li>
@@ -102,7 +112,7 @@
                                     <i class="fas fa-edit"></i>
                                 </div>
                                 <div class="activity-content">
-                                    <h4><?php echo $publish['post_title']; ?></h4>
+                                    <h4><a href="post.php?post_id=<?= $publish['post_id']; ?>" style="color: var(--dark-color)"><?= htmlspecialchars($publish["post_title"]); ?></a></h4>
                                     <small>Last updated: <?php echo date('M d, Y', strtotime($publish['post_updated'])); ?></small>
                                     <div>
                                         <a href="add_blog_ajax_draft.php?post_id=<?= htmlspecialchars($publish['post_id']) ?>" style="color: var(--primary-color); font-size: 12px; text-decoration: none; margin-right: 10px;">
@@ -138,7 +148,7 @@
                                     <i class="fas fa-edit"></i>
                                 </div>
                                 <div class="activity-content">
-                                    <h4><?php echo $draft['post_title']; ?></h4>
+                                    <h4><a href="post.php?post_id=<?= $draft['post_id']; ?>" style="color: var(--dark-color); text-decoration: none;"><?= htmlspecialchars($draft["post_title"]); ?></a></h4>
                                     <small>Last updated: <?php echo date('M d, Y', strtotime($draft['post_updated'])); ?></small>
                                     <div>
                                         <a href="add_blog_ajax_draft.php?post_id=<?= htmlspecialchars($draft['post_id']) ?>" style="color: var(--primary-color); font-size: 12px; text-decoration: none; margin-right: 10px;">
@@ -174,7 +184,7 @@
                                     <i class="fas fa-file-alt"></i>
                                 </div>
                                 <div class="activity-content">
-                                    <h4><?php echo $post['post_title']; ?></h4>
+                                    <h4><a href="post.php?post_id=<?= $post['post_id']; ?>" style="color: var(--dark-color); text-decoration: none"><?= htmlspecialchars($post["post_title"]); ?></a></h4>
                                     <small>
                                         <?php echo date('M d, Y', strtotime($post['post_published'])); ?>
                                         <span class="activity-status <?php echo $post['post_status']; ?>">
@@ -205,7 +215,7 @@
                                     <i class="fas fa-bookmark"></i>
                                 </div>
                                 <div class="activity-content">
-                                    <h4><?php echo $saved['post_title']; ?></h4>
+                                    <h4><a href="post.php?post_id=<?= $saved['post_id']; ?>" style="color: var(--dark-color);"><?= htmlspecialchars($saved["post_title"]); ?></a></h4>
                                     <p><?php echo $saved['post_excerpt']; ?></p>
                                     <small>Saved on: <?php echo date('M d, Y', strtotime($saved['saved_at'])); ?></small>
                                 </div>
